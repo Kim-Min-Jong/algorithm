@@ -13,5 +13,5 @@ fun main() = with(Scanner(System.`in`)){
 }
 fun isPrime(num:Int):Boolean{
         if(num <= 1) return false
-        return (2..Math.sqrt(num.toDouble()).toInt()).none{ num % it == 0 }
+        return (2..Math.sqrt(num.toDouble()).toInt()).none{ num % it == 0 } 
 }
