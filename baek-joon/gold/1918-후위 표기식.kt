@@ -9,7 +9,7 @@ fun main() = with(System.`in`.bufferedReader()){
 
     bw.flush()
     bw.close()
-    this.close()v
+    this.close()
 }
 // 후위변환
 fun infix2postfix(ll: String){
