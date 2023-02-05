@@ -4,4 +4,4 @@ class Solution {
         answer = ((strings.sorted()).sortedBy{it[n]}).toTypedArray()
         return answer
     }
-}
+} 
