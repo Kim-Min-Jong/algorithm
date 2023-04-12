@@ -24,5 +24,4 @@ fun main() = with(System.`in`.bufferedReader()) {
 
     bw.flush()
     bw.close()
-    close()
-}
+    close
