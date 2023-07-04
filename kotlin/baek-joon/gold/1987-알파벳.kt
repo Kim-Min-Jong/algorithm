@@ -13,7 +13,7 @@ lateinit var visited: BooleanArray
 fun main() = with(System.`in`.bufferedReader()) {
     val (r, c) = readLine().split(" ").map{it.toInt()}
     graph = Array(r){IntArray(c){0} }
-    visited2 = BooleanArray(26){false}
+    visited = BooleanArray(26){false}
     for(i in 0 until r) {
         val input = readLine()
         for(j in 0 until c) {
