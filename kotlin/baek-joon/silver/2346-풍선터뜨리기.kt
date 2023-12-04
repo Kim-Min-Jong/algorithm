@@ -8,9 +8,9 @@ fun main() = with(System.`in`.bufferedReader()) {
 
     val sb = StringBuilder()
     val n = readLine().toInt()
-    val list = readLine().split(" ")
+    val list = readLine().split(" ").map{ it.toInt() }
     val deque = ArrayDeque((1..n).map {
-        list[it-1].toInt() to it
+        list[it-1] to it
     })
 
     sb.append(1).append(" ")
@@ -36,4 +36,4 @@ fun main() = with(System.`in`.bufferedReader()) {
     bw.close()
     close()
 
-} // 메모리 초과 수정 중..
+} // 메모리 초과 수정 중.. anjwl....
