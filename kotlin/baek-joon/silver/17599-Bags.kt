@@ -5,7 +5,10 @@ import java.io.OutputStreamWriter
 val bw = BufferedWriter(OutputStreamWriter(System.out))
 fun main() = with(System.`in`.bufferedReader()) {
     val n = readLine().toInt()
-    val res = readLine().split(" ").map { it.toInt() }.groupBy { it }.size
+    val res = readLine().split(" ")
+        .map { it.toInt() }
+        .groupBy { it }
+        .size
     
     bw.write("$res")
 
