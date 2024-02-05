@@ -17,41 +17,45 @@ lateinit var map: HashMap<Long, Long>
 const val INF = 10000000
 data class MutablePair<T1, T2>(var first: T1, var second: T2)
 fun main() = with(System.`in`.bufferedReader()) {
-    val t = readLine().toInt()
+val t = readLine().toInt()
     for(i in 0 until t) {
         val n = readLine().toInt()
-        val maxHeap = PriorityQueue<Int>(Collections.reverseOrder())
-        val minHeap = PriorityQueue<Int>()
+        // TreeMap은 이진트리를 기반으로 한 Map 컬렉션
+        // TreeMap에 객체를 저장하면 자동으로 정렬되는데, 키는 저장과 동시에 자동 오름차순으로 정렬
+        // 우선 순위 큐 처럼 정렬을 하고, 검색, 삭제에 있어서 시간복잡도 향상을 노려볼 수 있음
+        val treeMap = TreeMap<Int, Int>()
         for(j in 0 until n) {
             val (command, num) = readLine().split(" ")
             val intNum = num.toInt()
             when(command) {
-                    "I" -> {
-                        maxHeap.add(intNum)
-                        minHeap.add(intNum)
-                    }
-                    "D" -> {
-                        when(intNum) {
-                            1 -> {
-                                val tmp = maxHeap.poll()
-                                minHeap.remove(tmp)
-                            }
-                            -1 -> {
-                                val tmp = minHeap.poll()
-                                maxHeap.remove(tmp)
-                            }
+                "I" -> {
+                    treeMap[intNum] = treeMap.getOrDefault(intNum , 0) + 1
+                }
+                "D" -> {
+                    var tmp = 0
+                    if(treeMap.size == 0) continue
+                    when(intNum) {
+                        1 -> {
+                            tmp = treeMap.lastKey()
+                        }
+                        -1 -> {
+                            tmp = treeMap.firstKey()
                         }
                     }
+                    if (treeMap.put(tmp, treeMap[tmp]?.minus(1) ?: 0) == 1) {
+                        treeMap.remove(tmp)
+                    }
                 }
+            }
         }
-        if(maxHeap.size == 1 && minHeap.size == 1){
+        if(treeMap.size == 0){
             bw.write("EMPTY\n")
         } else {
-            bw.write("${maxHeap.first()} ${minHeap.first()}\n")
+            bw.write("${treeMap.lastKey()} ${treeMap.firstKey()}\n")
         }
     }
 
     bw.flush()
     bw.close()
     close()
-} // 시간초과.. 큐 두개 때문에? - remove -> O(N)의 복잡도..
+} // TreeMap으로 변경 후 성공.. (참고)
