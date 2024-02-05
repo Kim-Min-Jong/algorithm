@@ -54,4 +54,4 @@ fun main() = with(System.`in`.bufferedReader()) {
     bw.flush()
     bw.close()
     close()
-} // 시간초과.. 큐 두개 때문에?
+} // 시간초과.. 큐 두개 때문에? - remove -> O(N)의 복잡도..
