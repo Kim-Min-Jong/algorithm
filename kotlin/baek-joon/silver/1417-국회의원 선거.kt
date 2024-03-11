@@ -23,9 +23,8 @@ fun main() = with(System.`in`.bufferedReader()) {
                 result += 1
             }
         }
+        bw.write("$result")
     }
-
-    bw.write("$result")
 
     bw.flush()
     bw.close()
