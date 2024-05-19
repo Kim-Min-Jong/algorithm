@@ -9,32 +9,23 @@ fun main() = with(System.`in`.bufferedReader()) {
     var str = readLine()
 
     repeat(q) {
-        val (command, l, r) = readLine().split(" ").map { it.toInt() }
+        var (command, l, r) = readLine().split(" ").map { it.toInt() }
+        l--
+        r--
         if (command == 1) {
-            bw.write("${countAlphabetSet(str)}\n")
+            var cnt = 1
+            for (i in l + 1 .. r) {
+                if (str[i] != str[i-1]) cnt++
+            }
+            bw.write("$cnt\n")
         } else {
-            str = nextAlphabet(str, l - 1, r - 1)
+            str = nextAlphabet(str, l, r)
         }
     }
 
     bw.flush()
     bw.close()
     close()
-}
-
-fun countAlphabetSet(str: String): Int {
-    var currentAlphabet = str[0]
-    var cnt = 1
-    for (i in 1 until str.length) {
-        if (currentAlphabet == str[i]) {
-            currentAlphabet = str[i]
-            continue
-        } else {
-            currentAlphabet = str[i]
-            cnt++
-        }
-    }
-    return cnt
 }
 
 fun nextAlphabet(
@@ -44,9 +35,8 @@ fun nextAlphabet(
 ): String {
     val tmp = str.toCharArray()
 
-    for (i in fromIndex .. toIndex) {
-        if (tmp[i] == 'Z') tmp[i] = tmp[i] - 25
-        else tmp[i] = tmp[i] + 1
+    for (i in fromIndex..toIndex) {
+        tmp[i] = ((tmp[i] - 'A' + 1) % 26 + 'A'.code).toChar()
     }
     return tmp.concatToString()
-} // 추가 반례 찾기
+} // 해결
