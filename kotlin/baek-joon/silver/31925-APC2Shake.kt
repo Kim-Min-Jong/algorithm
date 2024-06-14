@@ -16,7 +16,7 @@ fun main() = with(System.`in`.bufferedReader()) {
 
     list.filter{
         it.isAttending == "jaehak" && it.awarded == "notyet" && (it.topGrade > 3 || it.topGrade == -1)
-    }.sortedBy { it.name }.run {
+    }.sortedBy { it.topGrade }.take(10).sortedBy { it.name }.run {
         bw.write("${size}")
         forEach { bw.write("\n${it.name}") }
     }
