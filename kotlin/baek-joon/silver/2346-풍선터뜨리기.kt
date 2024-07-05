@@ -1,39 +1,34 @@
-import java.io.BufferedWriter
-import java.io.OutputStreamWriter
-import kotlin.collections.ArrayDeque
-import kotlin.math.abs
+import java.util.*
 
-val bw = BufferedWriter(OutputStreamWriter(System.out))
+data class Balloon(val idx: Int, val paper: Int)
+
 fun main() = with(System.`in`.bufferedReader()) {
-
+    val num = readLine().toInt()
+    val deque : Deque<Balloon> = ArrayDeque()
+    val st = StringTokenizer(br.readLine())
     val sb = StringBuilder()
-    val n = readLine().toInt()
-    val list = readLine().split(" ").map{ it.toInt() }
-    val deque = ArrayDeque((1..n).map {
-        list[it-1] to it
-    })
 
-    sb.append(1).append(" ")
-    var pivot = deque.removeFirst().first
-    while(deque.isNotEmpty()) {
-        if (pivot > 0) {
-            repeat(pivot - 1) {
-                deque.addLast(deque.removeFirst())
+    for(i in 1 .. num) {
+        deque.add(Balloon(i, st.nextToken().toInt()))
+    }
+
+    while (deque.isNotEmpty()) {
+        val pivot = deque.poll()
+        sb.append("${pivot.idx} ")
+
+        if(pivot.paper > 0) {
+            for(i in 1 until paper) {
+                deque.addLast(deque.pollFirst())
             }
-            pivot = deque.first().first
-            sb.append(deque.removeFirst().second).append(" ")
         } else {
-            repeat(abs(pivot) - 1) {
-                deque.addFirst(deque.removeLast())
+            for(i in paper until 0) {
+                deque.addFirst(deque.pollLast())
             }
-            pivot = deque.first().second
-            sb.append(deque.removeLast().second).append(" ")
         }
     }
-    bw.write("${sb.deleteCharAt(sb.lastIndex)}")
 
+    bw.write(sb.toString())
     bw.flush()
     bw.close()
     close()
-
-} // 메모리 초과 수정 중.. anjwl....
+}
