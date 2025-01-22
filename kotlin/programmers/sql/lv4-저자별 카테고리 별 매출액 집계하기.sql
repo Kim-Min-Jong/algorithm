@@ -1,0 +1,2 @@
+-- 코드를 입력하세요
+SELECT  a.author_id, a.author_name, b.category, sum(sales * price)  from book b, author a, book_sales s where b.book_id = s.book_id and b.author_id = a.author_id and to_char(s.sales_date,'YYYYMM') = '202201' group by a.author_id, a.author_name, b.category order by 1, 3 desc
